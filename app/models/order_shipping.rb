@@ -3,8 +3,8 @@ class OrderShipping
   attr_accessor :user_id, :item_id, :postal_code, :prefecture_id, :city, :address, :building, :phone_number, :token
 
   with_options presence: true do
-    validates :postal_code, format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)" }
-    validates :phone_number, format: { with: /\A\d{10,11}\z/, message: "is invalid. Input only number" }
+    validates :postal_code, format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)"}
+    validates :phone_number, format: { with: /\A\d{10,11}\z/, message: "is invalid. Input only numbers with 10 to 11 digits" }
     validates :user_id
     validates :item_id
     validates :city
