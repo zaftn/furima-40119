@@ -30,7 +30,7 @@ RSpec.describe OrderShipping, type: :model do
       it '郵便番号にハイフンが含まれていないと保存できない' do
         @order_shipping.postal_code = '1234567'
         @order_shipping.valid?
-        expect(@order_shipping.errors.full_messages).to include("Postal code is invalid. Include hyphen(-)")
+        expect(@order_shipping.errors.full_messages).to include('Postal code is invalid. Include hyphen(-)')
       end
 
       it '都道府県が未選択だと保存できない' do
@@ -60,19 +60,19 @@ RSpec.describe OrderShipping, type: :model do
       it '電話番号が12桁以上だと保存できない' do
         @order_shipping.phone_number = '123456789012'
         @order_shipping.valid?
-        expect(@order_shipping.errors.full_messages).to include("Phone number is invalid. Input only number")
+        expect(@order_shipping.errors.full_messages).to include('Phone number is invalid. Input only number')
       end
 
       it '電話番号が10桁未満だと保存できない' do
         @order_shipping.phone_number = '123456789'
         @order_shipping.valid?
-        expect(@order_shipping.errors.full_messages).to include("Phone number is invalid. Input only number")
+        expect(@order_shipping.errors.full_messages).to include('Phone number is invalid. Input only number')
       end
 
       it '電話番号に数字以外が含まれると保存できない' do
         @order_shipping.phone_number = '12345abcde'
         @order_shipping.valid?
-        expect(@order_shipping.errors.full_messages).to include("Phone number is invalid. Input only number")
+        expect(@order_shipping.errors.full_messages).to include('Phone number is invalid. Input only number')
       end
 
       it 'クレジットカードトークンが空だと保存できない' do
@@ -93,6 +93,6 @@ RSpec.describe OrderShipping, type: :model do
         expect(@order_shipping.errors.full_messages).to include("Item can't be blank")
       end
     end
-    end
+  end
 end
 # このテストコードは、購入情報を保存するためのモデルであるOrderShippingモデルのテストコードです。

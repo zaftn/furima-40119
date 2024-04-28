@@ -11,11 +11,11 @@ class OrdersController < ApplicationController
   def create
     @order_shipping = OrderShipping.new(order_params)
     if @order_shipping.valid?
-      pay_item  # 決済処理を実行
+      pay_item # 決済処理を実行
       @order_shipping.save
       redirect_to root_path, notice: 'Order was successfully created.'
     else
-      render :index, status: :unprocessable_entity #公開鍵のセットを削除
+      render :index, status: :unprocessable_entity # 公開鍵のセットを削除
     end
   end
 
@@ -32,14 +32,14 @@ class OrdersController < ApplicationController
   end
 
   def set_public_key
-    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
-    Rails.logger.info "Setting public key: #{gon.public_key}"  # ログ出力
+    gon.public_key = ENV['PAYJP_PUBLIC_KEY']
+    Rails.logger.info "Setting public key: #{gon.public_key}" # ログ出力
   end
 
   def redirect_unless_available
-    if current_user.id == @item.user_id || @item.order.present?
-      redirect_to root_path, alert: 'This item is not available for purchase.'
-    end
+    return unless current_user.id == @item.user_id || @item.order.present?
+
+    redirect_to root_path, alert: 'This item is not available for purchase.'
   end
 
   def pay_item
@@ -49,9 +49,9 @@ class OrdersController < ApplicationController
       card: order_params[:token],
       currency: 'jpy'
     )
-    unless charge.paid
-      render :index, alert: 'Payment failed.', status: :unprocessable_entity
-      return
-    end
+    return if charge.paid
+
+    render :index, alert: 'Payment failed.', status: :unprocessable_entity
+    nil
   end
 end
