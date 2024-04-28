@@ -83,5 +83,7 @@ gem "gon"
 gem "payjp"
 group :development do
   gem 'rubocop', require: false
-
+group :production do
+  gem 'pg'
+end
 end
